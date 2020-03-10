@@ -20,7 +20,7 @@ import java.io.IOException;
 public class Main {
 
 	static String javaDirectory = "~/Desktop/gem";
-	static String textDirectory = "~/Desktop/g";
+	static String textDirectory = "D:/Users/Julia/workspace/2018_CIA_Rev8/paths";
 	static TrajectoryGenerator.Config config = new TrajectoryGenerator.Config();
 	static final double kWheelbaseWidth = 23.819 / 12.0; // find with in feet
 
