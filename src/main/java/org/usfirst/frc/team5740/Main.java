@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5740;
 
+import org.usfirst.frc.team5740.gui.StartGui;
 import org.usfirst.frc.team5740.trajectory.Path;
 import org.usfirst.frc.team5740.trajectory.PathGenerator;
 import org.usfirst.frc.team5740.trajectory.TrajectoryGenerator;
@@ -56,6 +57,7 @@ public class Main {
 	public static void main(final String[] args) {
 
 		logger.info("Starting Path gen ");
+		StartGui.startUI(args);
 
 	}
 
