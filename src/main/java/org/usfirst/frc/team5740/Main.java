@@ -12,84 +12,51 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Jared341
  */
 public class Main {
+	
+	public static Logger logger =  Logger.getLogger(Main.class.getName());
 
-	static String javaDirectory = "~/Desktop/gem";
-	static String textDirectory = "D:/Users/Julia/workspace/2018_CIA_Rev8/paths";
-	static TrajectoryGenerator.Config config = new TrajectoryGenerator.Config();
-	static final double kWheelbaseWidth = 23.819 / 12.0; // find with in feet
+	public static String javaDirectory = "~/Desktop/gem";
+	public static String textDirectory = "D:/Users/Julia/workspace/2018_CIA_Rev8/paths";
+	public static TrajectoryGenerator.Config config = new TrajectoryGenerator.Config();
+	public static final double kWheelbaseWidth = 23.819 / 12.0; // find with in feet
 
-	public static String joinPath(String path1, String path2) {
-		File file1 = new File(path1);
-		File file2 = new File(file1, path2);
+	public static String joinPath(final String path1, final String path2) {
+		final File file1 = new File(path1);
+		final File file2 = new File(file1, path2);
 		return file2.getPath();
 	}
 
-	private static boolean writeFile(String path, String data) {
+	private static boolean writeFile(final String path, final String data) {
 		try {
-			File file = new File(path);
+			final File file = new File(path);
 
 			// if file doesn't exists, then create it
 			if (!file.exists()) {
 				file.createNewFile();
 			}
 
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
+			final FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			final BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(data);
 			bw.close();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			return false;
 		}
 
 		return true;
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
-		if (args.length >= 1) {
-			javaDirectory = args[0];
-		}
-		config.dt = .02;
-		config.max_acc = 3.5 * 12;
-		config.max_dec = 2;
-		config.max_jerk = 30.0 * 12;
-		config.max_vel = 8 * 12;
+		logger.info("Starting Path gen ");
 
-		LeftSwitchPath();
-		RightSwitchPath();
-		SideSwitchPath();
-		ForwardSwitchPath();
-		SwitchToCubeLineUpPath();
-		ForwardCubePickupPath();
-		CubeToSwitchPath();
-		NearScalePath();
-		SlowNearScalePath();
-		FastNearScalePath();
-		NearScaleSidePath();
-		RightFarScalePath();
-		LeftFarScalePath();
-		IntakeToScalePath();
-		RightIntakeToScalePath();
-		LeftScaleToIntakePath();
-		RightScaleToIntakePath();
-		RightFarScaleToIntakePath();
-		LeftScaleToSecondIntakePath();
-		RightScaleToSecondIntakePath();
-		LeftSecondCubeToScalePath();
-		RightSecondCubeToScalePath();
-		FarScaleTurnPath();
-		FarIntakeToScalePath();
-		FarScaleForwardPath();
-		Turn90Path();
-		StraightTestPath();
-
-		// change in x, change in y, change in angle, all cumulative (relative to start)
 	}
 
 	private static void LeftSwitchPath() {
@@ -102,11 +69,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(90.0 / 12.0, 62.0 / 12.0, Math.PI / 9.0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -120,11 +87,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(95.0 / 12.0, -45.0 / 12.0, -Math.PI / 9.0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -138,11 +105,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the GO LEFT case! (starting on right)
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(150.0 / 12.0, 0.0, 0.0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -156,11 +123,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the GO LEFT case! (starting on right)
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(21.0 / 12.0, 0.0, 0.0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -174,11 +141,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(60.0 / 12.0, 20.0 / 12.0, Math.PI / (180.0 / 65.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -192,11 +159,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(40.0 / 12.0, 0, 0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -210,11 +177,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(45.0 / 12.0, 55.0 / 12.0, Math.PI / (180.0 / 60.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -229,12 +196,12 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the RIGHT SCALE CASE starting on the RIGHT!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(145.0 / 12.0, 0, 0)); // 145
 		p.addWaypoint(new WaypointSequence.Waypoint(258.0 / 12.0, 30.0 / 12.0, Math.PI / 9.0));// 248
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -249,12 +216,12 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the RIGHT SCALE CASE starting on the RIGHT!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(145.0 / 12.0, 0, 0)); // 145
 		p.addWaypoint(new WaypointSequence.Waypoint(258.0 / 12.0, 30.0 / 12.0, Math.PI / 9.0));// 248
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -269,12 +236,12 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the RIGHT SCALE CASE starting on the RIGHT!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(145.0 / 12.0, 0, 0)); // 145
 		p.addWaypoint(new WaypointSequence.Waypoint(258.0 / 12.0, 40.0 / 12.0, Math.PI / 9.0));// 248 30
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -289,13 +256,13 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the RIGHT SCALE CASE starting on the RIGHT!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(145.0 / 12.0, -25.0 / 12.0, 0)); // 145
 		p.addWaypoint(new WaypointSequence.Waypoint(220.0 / 12.0, -25.0 / 12.0, 0)); // 145
 		p.addWaypoint(new WaypointSequence.Waypoint(275.0 / 12.0, 0.0 / 12.0, Math.toRadians(60.0)));// 248
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -310,7 +277,7 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the LEFT SCALE CASE starting on the RIGHT!
-		WaypointSequence p = new WaypointSequence(100);
+		final WaypointSequence p = new WaypointSequence(100);
 
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(90.0 / 12.0, -25.0 / 12.0, Math.toRadians(0.0)));
@@ -343,7 +310,7 @@ public class Main {
 		// p.addWaypoint(new WaypointSequence.Waypoint(-225.0/12.0, -175.0/12.0,
 		// Math.PI/(180.0/5.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -355,7 +322,7 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 		// Remember that this is for the Right SCALE CASE starting on the LEFT!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(80.0 / 12.0, -20.0 / 12.0, 0));
@@ -364,7 +331,7 @@ public class Main {
 		// p.addWaypoint(new WaypointSequence.Waypoint(-215.0/12.0, -215.0/12.0,
 		// Math.PI/(180.0/-15.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -378,11 +345,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, Math.toRadians(-20.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(50.0 / 12.0, 15.0 / 12.0, Math.toRadians(55)));// 50 TODO 15!!!!! 35
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -396,12 +363,12 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, Math.toRadians(-20.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(50.0 / 12.0, 15.0 / 12.0, Math.toRadians(55)));// 50 TODO 15 !!!!!
 																									// 35
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -415,11 +382,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, Math.toRadians(65.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(57.0 / 12.0, 15.0 / 12.0, Math.toRadians(-0.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -433,12 +400,12 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, -Math.PI / 9.0));
 		p.addWaypoint(new WaypointSequence.Waypoint(50.0 / 12.0, 8.0 / 12.0, Math.PI / (180.0 / 45.0)));// 48, 8 TODO
 																										// 5815
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -452,11 +419,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, -Math.PI / 9.0));
 		p.addWaypoint(new WaypointSequence.Waypoint(50.0 / 12.0, 8.0 / 12.0, Math.PI / (180.0 / 45.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -470,11 +437,11 @@ public class Main {
 
 		// Description of this auto mode path.
 		// Remember that this is for the BLUE CASE!
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, Math.toRadians(-15.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(60.0 / 12.0, 18.0 / 12.0, Math.toRadians(45.0)));// 47 15
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -486,7 +453,7 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, -Math.PI / 9.0));
 		p.addWaypoint(new WaypointSequence.Waypoint(.68 + .4, -0.0 / 12.0, Math.PI / (180.0 / 20.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(2.25, 1.25, Math.PI / (180.0 / 76.0)));
@@ -497,7 +464,7 @@ public class Main {
 		// p.addWaypoint(new WaypointSequence.Waypoint(50.0/12.0, 45.0/12.0, Math.PI /
 		// (180.0/30.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -509,10 +476,10 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, Math.toRadians(-20.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(60.0 / 12.0, 15.0 / 12.0, Math.toRadians(55)));
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -524,10 +491,10 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, Math.toRadians(-20.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(60.0 / 12.0, 15.0 / 12.0, Math.toRadians(55)));
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -540,7 +507,7 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, -Math.PI / 9.0));
 		p.addWaypoint(new WaypointSequence.Waypoint(.68 + .4, -0.0 / 12.0, Math.PI / (180.0 / 20.0)));
 		p.addWaypoint(new WaypointSequence.Waypoint(2.25, 1.25, Math.PI / (180.0 / 76.0)));
@@ -550,7 +517,7 @@ public class Main {
 		// p.addWaypoint(new WaypointSequence.Waypoint(50.0/12.0, 45.0/12.0, Math.PI /
 		// (180.0/30.0)));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -562,13 +529,13 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 
-		double angle = 105;
+		final double angle = 105;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(Math.PI * kWheelbaseWidth * angle / 360, 0, 0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -579,11 +546,11 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(36.0 / 12.0, 0, 0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -595,13 +562,13 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 8;
 
-		double angle = 90;
+		final double angle = 90;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(Math.PI * kWheelbaseWidth * angle / 360, 0, 0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
@@ -614,21 +581,21 @@ public class Main {
 		config.max_jerk = 30.0;
 		config.max_vel = 10.0;
 
-		WaypointSequence p = new WaypointSequence(10);
+		final WaypointSequence p = new WaypointSequence(10);
 		p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
 		p.addWaypoint(new WaypointSequence.Waypoint(30.0, 0, 0));
 
-		Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
+		final Path path = PathGenerator.makePath(p, config, kWheelbaseWidth, path_name);
 		writeFiles(path_name, path);
 	}
 
-	private static void writeFiles(String path_name, Path path) {
+	private static void writeFiles(final String path_name, final Path path) {
 
 		// Outputs to the directory supplied as the first argument.
-		JavaSerializer js = new JavaSerializer();
-		String serialized = js.serialize(path);
+		final JavaSerializer js = new JavaSerializer();
+		final String serialized = js.serialize(path);
 		// System.out.print(serialized);
-		String fullpath = joinPath(javaDirectory, path_name + ".java");
+		final String fullpath = joinPath(javaDirectory, path_name + ".java");
 		if (!writeFile(fullpath, serialized)) {
 			System.err.println(fullpath + " could not be written!!!!1");
 			System.exit(1);
@@ -637,10 +604,10 @@ public class Main {
 		}
 
 		// Outputs to the directory supplied as the first argument.
-		TextFileSerializer ts = new TextFileSerializer();
-		String serializedtext = ts.serialize(path);
+		final TextFileSerializer ts = new TextFileSerializer();
+		final String serializedtext = ts.serialize(path);
 		// System.out.print(serialized);
-		String fullpathtext = joinPath(textDirectory, path_name + ".txt");
+		final String fullpathtext = joinPath(textDirectory, path_name + ".txt");
 		if (!writeFile(fullpathtext, serializedtext)) {
 			System.err.println(fullpathtext + " could not be written!!!!1");
 			System.exit(1);
