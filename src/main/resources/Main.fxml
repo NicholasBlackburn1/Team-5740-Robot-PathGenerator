@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane focusTraversable="true" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #ffc0cb;" VBox.vgrow="ALWAYS">
+      <children>
+            <JFXToggleButton fx:id="Gen" layoutX="273.0" layoutY="338.0" prefHeight="0.0" prefWidth="184.0" text="Generate Path" />
+            <Text layoutX="207.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PathGenerator ">
+               <font>
+                  <Font name="Yrsa Medium" size="31.0" />
+               </font>
+            </Text>
+            <JFXCheckBox fx:id="savetxt" layoutX="504.0" layoutY="338.0" text="Save Texfile" />
+            <JFXCheckBox fx:id="savejava" layoutX="504.0" layoutY="368.0" text="Save  JavaFile" />
+            <JFXSpinner fx:id="pathprog" layoutX="231.0" layoutY="111.0" prefHeight="113.0" prefWidth="134.0" progress="0.97" />
+            <Text layoutX="231.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generation Progress" wrappingWidth="134.0" />
+            <JFXToggleButton fx:id="output" layoutX="280.0" layoutY="296.0" prefHeight="60.0" prefWidth="184.0" text="Output Location" />
+            <JFXCheckBox fx:id="comment" layoutX="504.0" layoutY="308.0" text="Comment Path" />
+            <Text fx:id="splashtext" fill="#ff2b00" layoutX="212.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Makes robot sentient" wrappingWidth="184.0">
+               <font>
+                  <Font name="Noto Mono" size="13.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="113.0" fitWidth="106.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@44243093.png" />
+               </image>
+            </ImageView>
+            <JFXToggleButton fx:id="path" layoutX="97.0" layoutY="338.0" text=" Path Config" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
