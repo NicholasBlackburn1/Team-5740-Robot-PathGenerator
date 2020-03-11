@@ -11,9 +11,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import org.usfirst.frc.team5740.*;
+
 public class Controller {
+
+    private final Stage stage = new Stage();
+    private final WaypointGui way = new WaypointGui();
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -47,41 +52,39 @@ public class Controller {
     public void initialize() {
 
         pathprog.progressProperty().set(0);
-        
-        // gets state of togle 
+
+        // gets state of togle
         Gen.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(final ActionEvent event) {
 
                 // Creates Connection
-                    
-            if(Gen.isSelected()) {
-                Main.logger.info("output path save is enabled");
-                
-                setOutputPath();
-                
-                } else{
-                Main.logger.warning("output save is Disabled");
+
+                if (Gen.isSelected()) {
+                    Main.logger.info("output path save is enabled");
+
+                    setOutputPath();
+
+                } else {
+                    Main.logger.warning("output save is Disabled");
                 }
             }
         });
-        
+
         output.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(final ActionEvent event) {
 
-                
-            if(output.isSelected()){
-            Main.logger.info("output path save is enabled");
-            
-            setOutputPath();
-            
-            } else{
-            Main.logger.warning("output save is Disabled");
-            }
+                if (output.isSelected()) {
+                    Main.logger.info("output path save is enabled");
 
+                    setOutputPath();
+
+                } else {
+                    Main.logger.warning("output save is Disabled");
+                }
 
             }
         });
@@ -93,32 +96,29 @@ public class Controller {
 
                 // Creates Connection
 
-                if(path.isSelected()){
+                if (path.isSelected()) {
                     Main.logger.warning(" Path gen Enabled");
-                    
                     wayPointConfig();
-        
-                } else{
+                    
+                } else {
                     Main.logger.warning(" Path gen Disabled");
+                    wayPointClose();
                 }
-                
 
             }
         });
-        
+
         comment.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(final ActionEvent event) {
 
-                if(comment.isSelected()){
+                if (comment.isSelected()) {
                     Main.logger.info("comment for java Enabed");
-                    
-                    setOutputPath();
-                    
-                    } else{
-                    Main.logger.warning("comment for java Disabled");
-                    }
+
+                } else {
+                    Main.logger.warning("comment for Disabled");
+                }
             }
         });
 
@@ -128,11 +128,11 @@ public class Controller {
             public void handle(final ActionEvent event) {
 
                 // Creates Connection
-                if(savejava.isSelected()){
+                if (savejava.isSelected()) {
                     Main.logger.info("Java save is enabled");
                     saveJava();
-                    
-                } else{
+
+                } else {
                     Main.logger.warning("Java save is Disabled");
                 }
             }
@@ -144,57 +144,66 @@ public class Controller {
             public void handle(final ActionEvent event) {
 
                 // Creates Connection
-                 
-            if(savetxt.isSelected()){
-                Main.logger.info("Text path save is enabled");
-                saveText();
-            
-            } else{
-                Main.logger.warning("Textpath save is Disabled");
-                }    
+
+                if (savetxt.isSelected()) {
+                    Main.logger.info("Text path save is enabled");
+                    saveText();
+
+                } else {
+                    Main.logger.warning("Textpath save is Disabled");
+                }
 
             }
         });
 
-        
-    }  
-        
-    public void pathJen(){
+    }
+
+    public void pathJen() {
         Main.logger.info(" Path gen Active ");
 
-    
     }
 
-    public void saveJava(){
+    public void saveJava() {
         Main.logger.info(" gen Java Path ");
 
-    
     }
 
-    public void saveText(){
+    public void saveText() {
         Main.logger.info("Saving text path");
-       
-    }  
-
-    public void splashUpdate(){
 
     }
 
-    public void enableComment(){
-        //Main.logger.info("Enabled coments for path ");
+    public void splashUpdate() {
 
     }
 
-    public void setOutputPath(){
+    public void enableComment() {
+        // Main.logger.info("Enabled coments for path ");
+
+    }
+
+    public void setOutputPath() {
         Main.logger.info("set Paths Output Location ");
 
-
-    } 
-
-    public void wayPointConfig(){
-      //\  Main.logger.info("Waypoint edit active ");
-        
-        
-
     }
+
+    public void wayPointConfig() {
+        // \ Main.logger.info("Waypoint edit active ");
+        try {
+            way.start(stage);
+        } catch (final Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+        public void wayPointClose(){
+            
+            try {
+                way.Close(stage);
+            } catch (final Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } 
+    
 }
