@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
@@ -13,25 +14,30 @@
    <children>
     <AnchorPane prefHeight="465.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
       <children>
-            <JFXRadioButton fx:id="addway" layoutX="14.0" layoutY="25.0" text="add new waypoints" />
+            <Text layoutX="210.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="     Waypoint Editor" wrappingWidth="219.7294921875">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <JFXToggleButton fx:id="waysave" layoutX="154.0" layoutY="340.0" text="Save Waypoints" />
+            <JFXRadioButton layoutX="339.0" layoutY="363.0" text="add Waypoints" />
+            <TreeTableView fx:id="waytable" editable="true" layoutX="6.0" layoutY="36.0" prefHeight="306.0" prefWidth="630.0" style="-fx-background-color: #ffc0cb;">
+              <columns>
+                <TreeTableColumn fx:id="waypoints" prefWidth="115.0" text="Waypoint" />
+                <TreeTableColumn fx:id="waypointX" prefWidth="51.0" text="X" />
+                  <TreeTableColumn fx:id="waypointY" prefWidth="51.0" text="Y" />
+                  <TreeTableColumn fx:id="waaypointTheta" prefWidth="51.0" text="Theta" />
+                  <TreeTableColumn fx:id="waypointDt" prefWidth="53.0" text="dt" />
+                  <TreeTableColumn fx:id="waypointAcc" prefWidth="70.0" text="max_acc" />
+                  <TreeTableColumn fx:id="waypointJerk" prefWidth="78.0" text="max_jerk" />
+              </columns>
+            </TreeTableView>
             <ImageView fitHeight="113.0" fitWidth="106.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@44243093.png" />
                </image>
             </ImageView>
-            <JFXRadioButton fx:id="order" layoutX="14.0" layoutY="71.0" text="display waypoint order" />
-            <JFXRadioButton fx:id="vars" layoutX="14.0" layoutY="125.0" text=" add Vars (ex: spd vel error etc)" />
-            <Text layoutX="191.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="     Waypoint Editor" wrappingWidth="219.7294921875">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <JFXToggleButton fx:id="waysave" layoutX="11.0" layoutY="160.0" text="Save Waypoints" />
-            <TreeTableView fx:id="WaypointTable" layoutX="436.0" layoutY="33.0" prefHeight="300.0" prefWidth="200.0">
-              <columns>
-                <TreeTableColumn fx:id="waytable" prefWidth="199.0" resizable="false" text="WayPoints" />
-              </columns>
-            </TreeTableView>
+
       </children>
     </AnchorPane>
   </children>

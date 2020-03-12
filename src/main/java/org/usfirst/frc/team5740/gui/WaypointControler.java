@@ -7,9 +7,11 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.JFXTreeView;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 
 import org.usfirst.frc.team5740.Main;
+import org.usfirst.frc.team5740.trajectory.WaypointSequence.Waypoint;
 
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -26,37 +28,44 @@ import org.usfirst.frc.team5740.util.*;
 
 public class WaypointControler {
 
-    private final String name = "";
-    private final double Distance = 0;
+    public String name;  
     public double x,y,theta;
 
     public WaypointCell cell = new WaypointCell(name, x, y, theta);
-    public final TreeItem root = new TreeItem<>();
     public List<WaypointCell> WaypointList;    
     
-    @FXML
-    private final TreeTableView<WaypointCell> waytable = new TreeTableView<>(root);
-
+    
     @FXML
     private JFXToggleButton waysave;
 
     @FXML
-    private JFXRadioButton addway;
+    private TreeTableColumn<WaypointCell, Double > waypointAcc;
 
     @FXML
-    private JFXRadioButton vars;
+    private TreeTableColumn<WaypointCell, Double> waypointY;
 
     @FXML
-    private JFXRadioButton order;
+    private TreeTableColumn<WaypointCell, Double> waypointX;
 
+    @FXML
+    private TreeTableColumn<WaypointCell, Double> waypointJerk;
+
+    @FXML 
+    private TreeTableColumn<WaypointCell, String> waypoints;
+
+    @FXML
+    private TreeTableColumn<WaypointCell, Double> waypointDt;
+
+    @FXML
+    private TreeTableColumn<WaypointCell, Double> waaypointTheta;
+
+    @FXML
+    private TreeTableView<WaypointCel> waytable;
+
+    @FXML
     public void initialize() {
-        waytable.setEditable(true);
 
-        final TreeTableColumn<WaypointCell, String> fileNameCol = new TreeTableColumn<>("Waypoint name");
-        final TreeTableColumn<WaypointCell, Double> XCol= new TreeTableColumn<>("X");
-        final TreeTableColumn<WaypointCell, Double> YCol = new TreeTableColumn<>("Y");
-        final TreeTableColumn<WaypointCell, Double> ThetaCol = new TreeTableColumn<>("Theta");
-        waytable.getColumns().add(ThetaCol);
+
         waysave.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 
             @Override
@@ -81,7 +90,7 @@ public class WaypointControler {
 
                 if (addway.isSelected()) {
                     Main.logger.info("addway is Active");
-                    waytable.setShowRoot(true);
+                    
                     
                 } else {
                     Main.logger.warning("addway is Disabed");
@@ -91,67 +100,13 @@ public class WaypointControler {
 
             }
         });
-
-        vars.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                // TODO Auto-generated method stub
-                if (vars.isSelected()) {
-                    Main.logger.info("vars is Active");
-
-                } else {
-                    Main.logger.warning("vas is Disabed");
-                }
-
-            }
-        });
-
-        order.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                // TODO Auto-generated method stub
-
-                if (order.isSelected()) {
-                    Main.logger.info("rder is Active");
-
-                } else {
-                    Main.logger.warning("WaveSave is Disabed");
-                }
-
-            }
-        });
-
     }
 
-    public void updateWaypoints() {
-
-        final Task task = new Task<Void>() {
-            @Override
-            public Void call() {
-                final int max = 1000000;
-                for (int i = 1; i <= max; i++) {
-                    if (isCancelled()) {
-                        break;
-                    }
-
-                    updateProgress(i, max);
-                }
-                return null;
-            }
-        };
-
-        new Thread(task).start();
-
-    }
-
-    public void getWaypointList() {
-
-    }
-
+    
     public void setWaypoints(final String Name, final Double X, final Double Y, final Double theta) {
         WaypointList = List.of(new WaypointCell(Name, X, Y, theta));
     }
+
+
 
 }
