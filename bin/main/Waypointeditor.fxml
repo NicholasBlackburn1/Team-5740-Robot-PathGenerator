@@ -13,14 +13,8 @@
    <children>
     <AnchorPane prefHeight="465.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
       <children>
-            <Text layoutX="443.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="     Waypoints" wrappingWidth="192.7294921875">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
             <JFXRadioButton fx:id="addway" layoutX="14.0" layoutY="25.0" text="add new waypoints" />
-            <JFXListView fx:id="WaypointList" depth="10" editable="true" fixedCellSize="1.0" layoutX="426.0" layoutY="23.0" prefHeight="377.0" prefWidth="200.0" style="-fx-background-color: pink; -fx-border-color: red;" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="113.0" fitWidth="106.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@44243093.png" />
                </image>
@@ -33,6 +27,11 @@
                </font>
             </Text>
             <JFXToggleButton fx:id="waysave" layoutX="11.0" layoutY="160.0" text="Save Waypoints" />
+            <TreeTableView fx:id="WaypointTable" layoutX="436.0" layoutY="33.0" prefHeight="300.0" prefWidth="200.0">
+              <columns>
+                <TreeTableColumn fx:id="waytable" prefWidth="199.0" resizable="false" text="WayPoints" />
+              </columns>
+            </TreeTableView>
       </children>
     </AnchorPane>
   </children>
