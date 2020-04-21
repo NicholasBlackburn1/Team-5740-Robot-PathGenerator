@@ -11,7 +11,7 @@ import com.jfoenix.controls.JFXTreeView;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 
 import org.usfirst.frc.team5740.Main;
-import org.usfirst.frc.team5740.trajectory.WaypointSequence.Waypoint;
+
 
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -29,9 +29,9 @@ import org.usfirst.frc.team5740.util.*;
 public class WaypointControler {
 
     public String name;  
-    public double x,y,theta;
+    public double x,y,theta,acc,jerk,dt;
 
-    public WaypointCell cell = new WaypointCell(name, x, y, theta);
+    public WaypointCell cell = new WaypointCell(name, x, y, theta, acc, jerk, dt);
     public List<WaypointCell> WaypointList;    
     
     
@@ -60,7 +60,7 @@ public class WaypointControler {
     private TreeTableColumn<WaypointCell, Double> waaypointTheta;
 
     @FXML
-    private TreeTableView<WaypointCel> waytable;
+    private TreeTableView<WaypointCell> waytable;
 
     @FXML
     public void initialize() {
@@ -68,27 +68,12 @@ public class WaypointControler {
 
         waysave.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 
+          
             @Override
             public void handle(final ActionEvent event) {
                 // TODO Auto-generated method stub
 
                 if (waysave.isSelected()) {
-
-                } else {
-
-                    Main.logger.warning("WaveSave is Disabed");
-                }
-
-            }
-        });
-
-        addway.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                // TODO Auto-generated method stub
-
-                if (addway.isSelected()) {
                     Main.logger.info("addway is Active");
                     
                     
@@ -103,8 +88,8 @@ public class WaypointControler {
     }
 
     
-    public void setWaypoints(final String Name, final Double X, final Double Y, final Double theta) {
-        WaypointList = List.of(new WaypointCell(Name, X, Y, theta));
+    public void setWaypoints(final String Name, final Double X, final Double Y, final Double theta, final Double acc,final Double Jerk, final double dt ) {
+        WaypointList = List.of(new WaypointCell(Name, X, Y, theta,acc,Jerk,dt));
     }
 
 
